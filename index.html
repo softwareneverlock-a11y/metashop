@@ -1,113 +1,110 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <title>MetaShop - Lucky 15ml</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MetaShop</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #000;
+      background-color: #0d0d0d;
       color: #fff;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
     }
     header {
-      display: flex;
-      align-items: center;
-      padding: 15px;
-      border-bottom: 1px solid #222;
+      padding: 20px;
+      text-align: center;
+      background: #111;
     }
-    .title {
-      font-size: 1.4em;
-      font-weight: bold;
+    header h1 {
       color: #00aaff;
+      margin: 0;
     }
-    .subtitle {
-      font-size: 0.9em;
-      color: #888;
-      margin-left: 10px;
+    header p {
+      color: #ccc;
+      margin: 5px 0 0;
     }
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 15px;
-      padding: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 20px;
     }
     .product-card {
-      background-color: #111;
+      background: #1a1a1a;
       border-radius: 10px;
-      padding: 10px;
+      padding: 15px;
       text-align: center;
     }
-    .product-image {
+    .product-card img {
       width: 100%;
+      height: auto;
+      max-height: 200px;
+      object-fit: cover;
       border-radius: 8px;
       margin-bottom: 10px;
-    }
-    .product-name {
-      font-weight: bold;
-      margin: 5px 0;
-    }
-    .product-desc {
-      font-size: 0.85em;
-      color: #aaa;
-      margin-bottom: 5px;
     }
     .product-price {
       color: #00aaff;
       font-weight: bold;
-      margin-bottom: 10px;
+      margin: 10px 0;
     }
     .buy-btn {
-      background-color: #00aaff;
-      border: none;
-      border-radius: 20px;
-      padding: 8px 15px;
+      background: #00aaff;
       color: #fff;
-      font-weight: bold;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 20px;
       cursor: pointer;
+      transition: background 0.3s;
     }
     .buy-btn:hover {
-      background-color: #0088cc;
+      background: #0088cc;
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="title">MetaShop</div>
-    <div class="subtitle">Lucky 15ml — Витрина</div>
+    <h1>MetaShop</h1>
+    <p>Жидкости — Витрина</p>
   </header>
-
   <main>
     <div class="product-grid" id="productGrid"></div>
   </main>
 
- <script>
-const products = [
-  { name: "Lucky 15ml", desc: "Watermelon Lemonade", price: "140", img: "images/watermelon-lemonade.jpg" },
-  { name: "Lucky 15ml", desc: "Blueberry", price: "140", img: "images/blueberry.jpg" },
-  { name: "Lucky 15ml", desc: "Cold Mango", price: "140", img: "images/cold-mango.jpg" },
-  { name: "Lucky 15ml", desc: "Spearmint", price: "140", img: "images/spearmint.jpg" },
-  { name: "Lucky 15ml", desc: "Cola", price: "140", img: "images/cola.jpg" },
-  { name: "Lucky 15ml", desc: "Banana", price: "140", img: "images/banana.jpg" },
-  { name: "Lucky 15ml", desc: "Pink Lemonade", price: "140", img: "images/pink-lemonade.jpg" },
-  { name: "Lucky 15ml", desc: "Apple", price: "140", img: "images/apple.jpg" },
-  { name: "Lucky 15ml", desc: "Grape", price: "140", img: "images/grape.jpg" },
-  { name: "Lucky 15ml", desc: "Strawberry", price: "140", img: "images/strawberry.jpg" }
-];
+  <script>
+    const products = [
+      { name: "Lucky 15ml", desc: "Watermelon Lemonade", price: "140", img: "images/watermelon-lemonade.jpg" },
+      { name: "Lucky 15ml", desc: "Blueberry", price: "140", img: "images/blueberry.jpg" },
+      { name: "Lucky 15ml", desc: "Cold Mango", price: "140", img: "images/cold-mango.jpg" },
+      { name: "Lucky 15ml", desc: "Spearmint", price: "140", img: "images/spearmint.jpg" },
+      { name: "Lucky 15ml", desc: "Cola", price: "140", img: "images/cola.jpg" },
+      { name: "Lucky 15ml", desc: "Banana", price: "140", img: "images/banana.jpg" },
+      { name: "Lucky 15ml", desc: "Pink Lemonade", price: "140", img: "images/pink-lemonade.jpg" },
+      { name: "Lucky 15ml", desc: "Apple", price: "140", img: "images/apple.jpg" },
+      { name: "Lucky 15ml", desc: "Grape", price: "140", img: "images/grape.jpg" },
+      { name: "Lucky 15ml", desc: "Strawberry", price: "140", img: "images/strawberry.jpg" }
+    ];
 
-const grid = document.getElementById("productGrid");
+    const grid = document.getElementById("productGrid");
 
-products.forEach(p => {
-  const card = document.createElement("div");
-  card.className = "product-card";
-  card.innerHTML = `
-    <img src="${p.img}" alt="${p.desc}">
-    <h3>${p.name}</h3>
-    <p>${p.desc}</p>
-    <p class="product-price">${p.price} грн</p>
-    <button class="buy-btn">Купить</button>
-  `;
-  grid.appendChild(card);
-});
-</script>
+    products.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "product-card";
+      card.innerHTML = `
+        <img src="${p.img}" alt="${p.desc}">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <p class="product-price">${p.price} грн</p>
+        <button class="buy-btn">Купить</button>
+      `;
+      card.querySelector(".buy-btn").addEventListener("click", () => {
+        const message = encodeURIComponent(`Хочу замовити: ${p.name} ${p.desc} за ${p.price} грн`);
+        window.location.href = `https://t.me/MetaShop4?text=${message}`;
+      });
+      grid.appendChild(card);
+    });
+  </script>
+</body>
+</html>
+
