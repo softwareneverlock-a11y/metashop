@@ -71,16 +71,18 @@
   <main>
     <div class="product-grid" id="productGrid"></div>
   </main>
-
-  <script>
+<script>
 const products = [
-  { name: "Lucky 15ml", desc: "Blueberry", price: "140", img: "images/blueberry.jpg" },
-  { name: "Lucky 15ml", desc: "Cold Mango", price: "140", img: "images/cold-mango.jpg" },
-  { name: "Lucky 15ml", desc: "Spearmint", price: "140", img: "images/spearmint.jpg" },
-  { name: "Lucky 15ml", desc: "Cola", price: "140", img: "images/cola.jpg" },
-  { name: "Lucky 15ml", desc: "Banana", price: "140", img: "images/banana.jpg" },
-  { name: "Lucky 15ml", desc: "Pink Lemonade", price: "140", img: "images/pink-lemonade.jpg" },
-  { name: "Lucky 15ml", desc: "Apple", price: "140", img: "images/apple.jpg" }
+  { name: "Lucky 15ml", desc: "Watermelon Lemonade", price: "140", img: "images/watermelon-lemonade.jpg", available: false },
+  { name: "Lucky 15ml", desc: "Blueberry", price: "140", img: "images/blueberry.jpg", available: true },
+  { name: "Lucky 15ml", desc: "Cold Mango", price: "140", img: "images/cold-mango.jpg", available: true },
+  { name: "Lucky 15ml", desc: "Spearmint", price: "140", img: "images/spearmint.jpg", available: true },
+  { name: "Lucky 15ml", desc: "Cola", price: "140", img: "images/cola.jpg", available: true },
+  { name: "Lucky 15ml", desc: "Banana", price: "140", img: "images/banana.jpg", available: true },
+  { name: "Lucky 15ml", desc: "Pink Lemonade", price: "140", img: "images/pink-lemonade.jpg", available: true },
+  { name: "Lucky 15ml", desc: "Apple", price: "140", img: "images/apple.jpg", available: true },
+  { name: "Lucky 15ml", desc: "Grape", price: "140", img: "images/grape.jpg", available: false },
+  { name: "Lucky 15ml", desc: "Strawberry", price: "140", img: "images/strawberry.jpg", available: false }
 ];
 
 const grid = document.getElementById("productGrid");
@@ -93,12 +95,18 @@ products.forEach(p => {
     <h3>${p.name}</h3>
     <p>${p.desc}</p>
     <p class="product-price">${p.price} грн</p>
-    <button class="buy-btn">Купить</button>
+    ${p.available 
+      ? `<button class="buy-btn">Купить</button>` 
+      : `<button class="buy-btn" disabled style="background:#555;cursor:not-allowed;">Немає в наявності</button>`}
   `;
-  card.querySelector(".buy-btn").addEventListener("click", () => {
-    const message = encodeURIComponent(`Хочу замовити: ${p.name} ${p.desc} за ${p.price} грн`);
-    window.location.href = `https://t.me/MetaShop4?text=${message}`;
-  });
+  
+  if (p.available) {
+    card.querySelector(".buy-btn").addEventListener("click", () => {
+      const message = encodeURIComponent(`Хочу замовити: ${p.name} ${p.desc} за ${p.price} грн`);
+      window.location.href = `https://t.me/MetaShop4?text=${message}`;
+    });
+  }
+
   grid.appendChild(card);
 });
 </script>
