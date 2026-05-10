@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>MetaShop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Общий стиль */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid #222;
+    }
+
+    /* Логотип (SVG) */
+    .logo {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .logo svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .title {
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #00aaff; /* электрик-синий */
+    }
+
+    .subtitle {
+      font-size: 0.9em;
+      color: #888;
+      margin-left: 10px;
+    }
+
+    /* Сетка товаров */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 15px;
+      padding: 15px;
+    }
+
+    .product-card {
+      background-color: #111;
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .product-image {
+      width: 100%;
+      padding-top: 100%; /* квадрат */
+      background-color: #333;
+      border-radius: 8px;
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .product-image::after {
+      content: "📦";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2em;
+      color: #777;
+    }
+
+    .product-name {
+      font-weight: bold;
+      margin: 5px 0;
+    }
+
+    .product-desc {
+      font-size: 0.85em;
+      color: #aaa;
+      margin-bottom: 5px;
+    }
+
+    .product-price {
+      color: #00aaff;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .buy-btn {
+      background-color: #00aaff;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 15px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .buy-btn:hover {
+      background-color: #0088cc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <!-- SVG логотип: абстрактное сплетение M и S -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#00aaff;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#0055ff;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+        <path d="M20,80 Q40,20 60,80 Q80,20 100,80" stroke="url(#grad)" stroke-width="6" fill="none"/>
+        <text x="25" y="55" font-size="20" fill="url(#grad)" font-family="sans-serif">MS</text>
+      </svg>
+    </div>
+    <div class="title">MetaShop</div>
+    <div class="subtitle">Витрина наличия</div>
+  </header>
+
+  <main>
+    <div class="product-grid" id="productGrid"></div>
+  </main>
+
+  <script>
+    // Массив тестовых товаров
+    const products = [
+      { name: "Elf Bar 1500", desc: "Вкус: Манго", price: "350 грн." },
+      { name: "Vaporesso XROS 3", desc: "Под-система", price: "1200 грн." },
+      { name: "Жидкость Chaser 30мл", desc: "Вкус: Ягоды", price: "250 грн." },
+      { name: "GeekVape Aegis Mini", desc: "Мод 2200mAh", price: "1500 грн." },
+      { name: "Voopoo Drag S", desc: "Pod Mod", price: "1700 грн." },
+      { name: "Жидкость Cloudy 60мл", desc: "Вкус: Кола", price: "400 грн." },
+      { name: "Uwell Caliburn G2", desc: "Pod-система", price: "1100 грн." }
+    ];
+
+    const grid = document.getElementById("productGrid");
+
+    // Генерация карточек
+    products.forEach(product => {
+      const card = document.createElement("div");
+      card.className = "product-card";
+
+      card.innerHTML = `
+        <div class="product-image"></div>
+        <div class="product-name">${product.name}</div>
+        <div class="product-desc">${product.desc}</div>
+        <div class="product-price">${product.price}</div>
+        <button class="buy-btn">Купить</button>
+      `;
+
+      // Логика кнопки "Купить"
+      const btn = card.querySelector(".buy-btn");
+      btn.addEventListener("click", () => {
+        const message = `Добрый день! Хочу купить: ${product.name}, цена: ${product.price}. Есть в наличии?`;
+        const encoded = encodeURIComponent(message);
+        const link = `https://t.me/MetaShop4?text=${encoded}`;
+        window.location.href = link;
+      });
+
+      grid.appendChild(card);
+    });
+  </script>
+</body>
+</html>
