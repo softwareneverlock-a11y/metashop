@@ -73,38 +73,35 @@
   </main>
 
   <script>
-    const products = [
-      { name: "Lucky 15ml", desc: "Watermelon Lemonade", price: "140", img: "images/watermelon-lemonade.jpg" },
-      { name: "Lucky 15ml", desc: "Blueberry", price: "140", img: "images/blueberry.jpg" },
-      { name: "Lucky 15ml", desc: "Cold Mango", price: "140", img: "images/cold-mango.jpg" },
-      { name: "Lucky 15ml", desc: "Spearmint", price: "140", img: "images/spearmint.jpg" },
-      { name: "Lucky 15ml", desc: "Cola", price: "140", img: "images/cola.jpg" },
-      { name: "Lucky 15ml", desc: "Banana", price: "140", img: "images/banana.jpg" },
-      { name: "Lucky 15ml", desc: "Pink Lemonade", price: "140", img: "images/pink-lemonade.jpg" },
-      { name: "Lucky 15ml", desc: "Apple", price: "140", img: "images/apple.jpg" },
-      { name: "Lucky 15ml", desc: "Grape", price: "140", img: "images/grape.jpg" },
-      { name: "Lucky 15ml", desc: "Strawberry", price: "140", img: "images/strawberry.jpg" }
-    ];
+const products = [
+  { name: "Lucky 15ml", desc: "Blueberry", price: "140", img: "images/blueberry.jpg" },
+  { name: "Lucky 15ml", desc: "Cold Mango", price: "140", img: "images/cold-mango.jpg" },
+  { name: "Lucky 15ml", desc: "Spearmint", price: "140", img: "images/spearmint.jpg" },
+  { name: "Lucky 15ml", desc: "Cola", price: "140", img: "images/cola.jpg" },
+  { name: "Lucky 15ml", desc: "Banana", price: "140", img: "images/banana.jpg" },
+  { name: "Lucky 15ml", desc: "Pink Lemonade", price: "140", img: "images/pink-lemonade.jpg" },
+  { name: "Lucky 15ml", desc: "Apple", price: "140", img: "images/apple.jpg" }
+];
 
-    const grid = document.getElementById("productGrid");
+const grid = document.getElementById("productGrid");
 
-    products.forEach(p => {
-      const card = document.createElement("div");
-      card.className = "product-card";
-      card.innerHTML = `
-        <img src="${p.img}" alt="${p.desc}">
-        <h3>${p.name}</h3>
-        <p>${p.desc}</p>
-        <p class="product-price">${p.price} грн</p>
-        <button class="buy-btn">Купить</button>
-      `;
-      card.querySelector(".buy-btn").addEventListener("click", () => {
-        const message = encodeURIComponent(`Хочу замовити: ${p.name} ${p.desc} за ${p.price} грн`);
-        window.location.href = `https://t.me/MetaShop4?text=${message}`;
-      });
-      grid.appendChild(card);
-    });
-  </script>
+products.forEach(p => {
+  const card = document.createElement("div");
+  card.className = "product-card";
+  card.innerHTML = `
+    <img src="${p.img}" alt="${p.desc}">
+    <h3>${p.name}</h3>
+    <p>${p.desc}</p>
+    <p class="product-price">${p.price} грн</p>
+    <button class="buy-btn">Купить</button>
+  `;
+  card.querySelector(".buy-btn").addEventListener("click", () => {
+    const message = encodeURIComponent(`Хочу замовити: ${p.name} ${p.desc} за ${p.price} грн`);
+    window.location.href = `https://t.me/MetaShop4?text=${message}`;
+  });
+  grid.appendChild(card);
+});
+</script>
 </body>
 </html>
 
