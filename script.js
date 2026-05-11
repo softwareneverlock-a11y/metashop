@@ -1,3 +1,6 @@
+// Указываем объем для этой страницы
+const currentVolume = "15ml"; 
+
 const products = [
     { name: "Watermelon Lemonade", img: "watermelon-lemonade.jpg", stock: false },
     { name: "Blueberry", img: "blueberry.jpg", stock: true },
@@ -17,8 +20,9 @@ function render() {
     const grid = document.getElementById('product-grid');
     grid.innerHTML = products.map(p => `
         <div class="product-card ${!p.stock ? 'out-of-stock' : ''}">
-            <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/150?text=No+Image'">
+            <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/150?text=Lucky'">
             <h3>${p.name}</h3>
+            <p class="volume-badge">${currentVolume}</p>
             <p class="status">${p.stock ? 'В наличии' : 'Нет в наличии'}</p>
             <div class="card-buttons">
                 <button class="cart-btn" onclick="addToCart('${p.name}')" ${!p.stock ? 'disabled' : ''}>В корзину</button>
@@ -29,13 +33,14 @@ function render() {
 }
 
 function addToCart(name) {
-    cart.push(name);
+    // Сохраняем имя ВМЕСТЕ с объемом
+    cart.push(`${name} (${currentVolume})`);
     document.getElementById('cart-count').innerText = cart.length;
-    showNotification(`✅ ${name} в корзине!`);
+    showNotification(`✅ ${name} ${currentVolume} в корзине!`);
 }
 
 function buyNow(name) {
-    const text = encodeURIComponent(`Привет! Хочу купить: ${name}`);
+    const text = encodeURIComponent(`Привет! Хочу купить: ${name} (${currentVolume})`);
     window.open(`https://t.me/MetaShop4?text=${text}`, '_blank');
 }
 
@@ -54,12 +59,13 @@ function showNotification(text) {
 function toggleCart() {
     const m = document.getElementById('cart-modal');
     m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
-    document.getElementById('cart-items').innerHTML = cart.map(i => `<div style="margin:5px 0">🔹 ${i}</div>`).join('') || 'Корзина пуста';
+    document.getElementById('cart-items').innerHTML = cart.map(i => `<div class="cart-item">🔹 ${i}</div>`).join('') || 'Корзина пуста';
 }
 
 function checkout() {
     if (cart.length === 0) return;
-    const text = encodeURIComponent(`Заказ: ${cart.join(', ')}`);
+    // В сообщении теперь будут все позиции с объемами
+    const text = encodeURIComponent(`Мой заказ в Metashop:\n${cart.join('\n')}`);
     window.open(`https://t.me/MetaShop4?text=${text}`, '_blank');
 }
 
