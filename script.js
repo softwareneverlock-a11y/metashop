@@ -1,5 +1,4 @@
 // --- КОНФИГУРАЦИЯ ТОВАРОВ ---
-
 const luckyVastes = [
     { name: "Blueberry", img: "blueberry.jpg", stock: true },
     { name: "Cold Mango", img: "cold-mango.jpg", stock: true },
@@ -19,16 +18,31 @@ const podList = [
     { name: "Ursa Nano (0.6)", price: "160 грн", img: "ursa-06.jpg", stock: false }
 ];
 
-let cart = [];
+// --- ЛОГИКА ОБЩЕЙ КОРЗИНЫ (LocalStorage) ---
 
-// --- ОСНОВНАЯ ФУНКЦИЯ ОТРИСОВКИ ---
+// Загружаем корзину из памяти браузера при старте
+let cart = JSON.parse(localStorage.getItem('metashop_cart')) || [];
+
+function saveCart() {
+    localStorage.setItem('metashop_cart', JSON.stringify(cart));
+    updateCartCounter();
+}
+
+function updateCartCounter() {
+    const count = document.getElementById('cart-count');
+    if (count) {
+        count.innerText = cart.length;
+        count.style.display = cart.length > 0 ? 'block' : 'none';
+    }
+}
+
+// --- ОТРИСОВКА ---
 
 function render() {
     const luckyGrid = document.getElementById('lucky-grid');
     const cartridgeGrid = document.getElementById('cartridge-grid');
     const brandGrid = document.getElementById('brand-grid');
 
-    // 1. Страница выбора бренда (liquids.html)
     if (brandGrid) {
         brandGrid.innerHTML = `
             <a href="lucky-15.html" class="category-card">
@@ -40,7 +54,6 @@ function render() {
         `;
     }
 
-    // 2. Страница вкусов Lucky (lucky-15.html)
     if (luckyGrid) {
         luckyGrid.innerHTML = luckyVastes.map(v => `
             <div class="product-card ${!v.stock ? 'out-of-stock' : ''}">
@@ -58,7 +71,6 @@ function render() {
         `).join('');
     }
 
-    // 3. Страница картриджей (cartridges.html)
     if (cartridgeGrid) {
         cartridgeGrid.innerHTML = podList.map(p => `
             <div class="product-card ${!p.stock ? 'out-of-stock' : ''}">
@@ -75,54 +87,47 @@ function render() {
             </div>
         `).join('');
     }
+    updateCartCounter();
 }
 
-// --- ЛОГИКА КОРЗИНЫ ---
+// --- УПРАВЛЕНИЕ ЗАКАЗАМИ ---
 
 function addToCart(item) {
     cart.push(item);
-    const count = document.getElementById('cart-count');
-    if (count) count.innerText = cart.length;
+    saveCart();
     showNotify(`✅ ${item.toUpperCase()} ДОДАНО`);
 }
 
 function showNotify(text) {
-    // 1. Если уже есть уведомление, быстро удаляем его
     const oldNotify = document.querySelector('.notification');
-    if (oldNotify) {
-        oldNotify.remove();
-    }
-
-    // 2. Создаем новый элемент
+    if (oldNotify) oldNotify.remove();
     const el = document.createElement('div');
-    el.className = 'notification'; // CSS класс
+    el.className = 'notification show';
     el.innerText = text;
-    
-    // 3. Добавляем в конец body
     document.body.appendChild(el);
-    
-    // 4. Через микропаузу добавляем класс 'show', чтобы сработала CSS анимация
-    setTimeout(() => {
-        el.classList.add('show');
-    }, 10);
-    
-    // 5. Через 2.5 секунды начинаем прятать
-    setTimeout(() => {
-        el.classList.remove('show');
-        // 6. И еще через полсекунды (когда закончится анимация затухания) удаляем из DOM
-        setTimeout(() => {
-            el.remove();
-        }, 500);
-    }, 2500);
+    setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 500); }, 2500);
 }
+
 function toggleCart() {
     const m = document.getElementById('cart-modal');
     if (!m) return;
     m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
     const items = document.getElementById('cart-items');
     if (items) {
-        items.innerHTML = cart.map(i => `<div class="cart-item" style="color:var(--accent); border-bottom: 1px solid var(--card-border); padding:10px 0;">[+] ${i.toUpperCase()}</div>`).join('') || 'КОШИК ПОРОЖНІЙ';
+        items.innerHTML = cart.map((i, index) => `
+            <div class="cart-item" style="color:var(--accent); border-bottom: 1px solid var(--card-border); padding:10px 0; display:flex; justify-content:space-between;">
+                <span>[+] ${i.toUpperCase()}</span>
+                <span onclick="removeFromCart(${index})" style="cursor:pointer; color:#ff4444;">✕</span>
+            </div>
+        `).join('') || 'КОШИК ПОРОЖНІЙ';
     }
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    saveCart();
+    toggleCart(); // Обновляем вид корзины
+    toggleCart(); 
 }
 
 function buyNow(item) { 
@@ -133,8 +138,9 @@ function checkout() {
     if(cart.length) {
         const text = encodeURIComponent(`Нове замовлення:\n${cart.join('\n')}`);
         window.open(`https://t.me/MetaShop4?text=${text}`);
+        // Очищаем корзину после заказа (по желанию)
+        // cart = []; saveCart(); updateCartCounter();
     }
 }
 
-// ЗАПУСК
 document.addEventListener('DOMContentLoaded', render);
