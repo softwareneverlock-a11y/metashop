@@ -4,7 +4,7 @@ const podList = [
     { name: "Ursa Nano (0.6)", price: "160 грн", img: "ursa-06.jpg", stock: false }
 ];
 
-const liquidVastes = [
+const luckyVastes = [
     { name: "Blueberry", img: "blueberry.jpg", stock: true },
     { name: "Cold Mango", img: "cold-mango.jpg", stock: true },
     { name: "Spearmint", img: "spearmint.jpg", stock: true },
@@ -25,18 +25,22 @@ function render() {
     const brandGrid = document.getElementById('brand-grid');
 
     if (brandGrid) {
-        brandGrid.innerHTML = `<a href="lucky-15.html" class="category-card"><h2>Lucky</h2><p>15ml / 140 грн</p></a>`;
+        brandGrid.innerHTML = `
+            <a href="liquids.html" class="category-card active-card"><h2>Жидкости</h2><p>Lucky 15ml и др.</p></a>
+            <a href="cartridges.html" class="category-card"><h2>Картриджи</h2><p>Расходники для подов</p></a>
+        `;
     }
 
     if (luckyGrid) {
-        luckyGrid.innerHTML = liquidVastes.map(v => `
+        luckyGrid.innerHTML = luckyVastes.map(v => `
             <div class="product-card ${!v.stock ? 'out-of-stock' : ''}">
                 <img src="${v.img}" alt="${v.name}" onerror="this.src='https://via.placeholder.com/150'">
                 <h3>${v.name}</h3>
                 <span class="volume-badge">15ml</span>
+                <p class="status-text">${v.stock ? 'В наличии' : 'Нет в наличии'}</p>
                 <div class="card-buttons">
-                    <button class="cart-btn" onclick="addToCart('${v.name} 15ml')">В корзину</button>
-                    <button class="buy-now-btn" onclick="buyNow('${v.name} 15ml')">Купить</button>
+                    <button class="cart-btn" onclick="addToCart('${v.name} 15ml')" ${!v.stock ? 'disabled' : ''}>${v.stock ? 'В корзину' : '---'}</button>
+                    <button class="buy-now-btn" onclick="buyNow('${v.name} 15ml')" ${!v.stock ? 'disabled' : ''}>${v.stock ? 'Купить' : 'SOLD'}</button>
                 </div>
             </div>
         `).join('');
@@ -48,9 +52,10 @@ function render() {
                 <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/150'">
                 <h3>${p.name}</h3>
                 <span class="volume-badge">${p.price}</span>
+                <p class="status-text">${p.stock ? 'В наличии' : 'Нет в наличии'}</p>
                 <div class="card-buttons">
-                    <button class="cart-btn" onclick="addToCart('${p.name}')">В корзину</button>
-                    <button class="buy-now-btn" onclick="buyNow('${p.name}')">Купить</button>
+                    <button class="cart-btn" onclick="addToCart('${p.name}')" ${!p.stock ? 'disabled' : ''}>В корзину</button>
+                    <button class="buy-now-btn" onclick="buyNow('${p.name}')" ${!p.stock ? 'disabled' : ''}>Купить</button>
                 </div>
             </div>
         `).join('');
@@ -60,7 +65,7 @@ function render() {
 function addToCart(item) {
     cart.push(item);
     document.getElementById('cart-count').innerText = cart.length;
-    showNotify(`✅ ${item} добавлен!`);
+    showNotify(`✅ ${item} в корзине`);
 }
 
 function showNotify(text) {
