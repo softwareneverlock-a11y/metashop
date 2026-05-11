@@ -1,17 +1,19 @@
-// Данные для Жидкостей (для liquids.html)
-const liquids = [
-    { name: "Lucky", img: "lucky-logo.jpg", link: "lucky-15.html", price: "140 грн" }
+// --- ДАННЫЕ МАГАЗИНА ---
+
+// Данные для Брендов Жидкостей (для liquids.html)
+const liquidBrands = [
+    { name: "Lucky 15ml", img: "lucky-logo.jpg", link: "lucky-15.html", price: "140 грн" }
 ];
 
 // Данные для Картриджей (для cartridges.html)
-const cartridges = [
+const cartridgeProducts = [
     { name: "Vaporesso XROS (0.8)", img: "cartridge-xros.jpg", stock: true, price: "150 грн" },
     { name: "Vaporesso XROS (1.0)", img: "cartridge-xros-1.jpg", stock: true, price: "150 грн" },
     { name: "Ursa Nano (0.6)", img: "ursa-06.jpg", stock: false, price: "160 грн" }
 ];
 
 // Данные для Вкусов Lucky (для lucky-15.html)
-const luckyProducts = [
+const luckyVastes = [
     { name: "Blueberry", img: "blueberry.jpg", stock: true },
     { name: "Cold Mango", img: "cold-mango.jpg", stock: true },
     { name: "Spearmint", img: "spearmint.jpg", stock: true },
@@ -26,16 +28,18 @@ const luckyProducts = [
 
 let cart = [];
 
-function render() {
-    console.log("Render started...");
+// --- ФУНКЦИИ ОТРИСОВКИ (С УЧЕТОМ КЛАССОВ CSS) ---
+
+function renderPage() {
+    console.log("METASHOP: Render started...");
     
     const brandGrid = document.getElementById('brand-grid');
     const cartridgeGrid = document.getElementById('cartridge-grid');
-    const productGrid = document.getElementById('product-grid');
+    const luckyGrid = document.getElementById('lucky-grid');
 
-    // 1. Отрисовка Брендов (на liquids.html)
+    // 1. Отрисовка Брендов Жидкостей (на liquids.html)
     if (brandGrid) {
-        brandGrid.innerHTML = liquids.map(b => `
+        brandGrid.innerHTML = liquidBrands.map(b => `
             <a href="${b.link}" class="category-card">
                 <h2>${b.name}</h2>
                 <p>от ${b.price}</p>
@@ -43,9 +47,9 @@ function render() {
         `).join('');
     }
 
-    // 2. Отрисовка Картриджей (на cartridges.html) - ИСПРАВЛЕНЫ КЛАССЫ КНОПОК
+    // 2. Отрисовка Картриджей (на cartridges.html) - ПРИМЕНЯЕМ КЛАССЫ CSS
     if (cartridgeGrid) {
-        cartridgeGrid.innerHTML = cartridges.map(c => `
+        cartridgeGrid.innerHTML = cartridgeProducts.map(c => `
             <div class="product-card ${!c.stock ? 'out-of-stock' : ''}">
                 <img src="${c.img}" alt="${c.name}" onerror="this.src='https://via.placeholder.com/150?text=Pods'">
                 <h3>${c.name}</h3>
@@ -58,9 +62,9 @@ function render() {
         `).join('');
     }
 
-    // 3. Отрисовка Вкусов Lucky (на lucky-15.html) - ИСПРАВЛЕНА СТРУКТУРА ДЛЯ CSS
-    if (productGrid) {
-        productGrid.innerHTML = luckyProducts.map(p => `
+    // 3. Отрисовка Вкусов Lucky (на lucky-15.html) - ПРИМЕНЯЕМ КЛАССЫ CSS И ОБЪЕМ
+    if (luckyGrid) {
+        luckyGrid.innerHTML = luckyVastes.map(p => `
             <div class="product-card ${!p.stock ? 'out-of-stock' : ''}">
                 <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/150?text=Lucky'">
                 <h3>${p.name}</h3>
@@ -75,23 +79,24 @@ function render() {
     }
 }
 
-// Функции корзины
+// --- ФУНКЦИИ КОРЗИНЫ ---
+
 function addToCart(name) {
     cart.push(name);
     const countEl = document.getElementById('cart-count');
     if (countEl) countEl.innerText = cart.length;
-    showNotification(`✅ ${name} добавлен!`);
+    showNotification(`✅ ${name} добавлен в корзину!`);
 }
 
 function buyNow(name) {
-    const text = encodeURIComponent(`Привет! Хочу купить: ${name}`);
+    const text = encodeURIComponent(`Привет! Хочу сразу купить: ${name}`);
     window.open(`https://t.me/MetaShop4?text=${text}`, '_blank');
 }
 
 function showNotification(text) {
-    // Проверка на дубликаты уведомлений
-    const existing = document.querySelector('.notification');
-    if (existing) existing.remove();
+    // Удаляем старое уведомление, если оно есть
+    const old = document.querySelector('.notification');
+    if (old) old.remove();
 
     const el = document.createElement('div');
     el.className = 'notification';
@@ -116,9 +121,9 @@ function toggleCart() {
 
 function checkout() {
     if (cart.length === 0) return;
-    const text = encodeURIComponent(`Заказ из Metashop:\n${cart.join('\n')}`);
+    const text = encodeURIComponent(`Мой заказ в Metashop:\n${cart.join('\n')}`);
     window.open(`https://t.me/MetaShop4?text=${text}`, '_blank');
 }
 
 // Запуск при загрузке
-window.onload = render;
+window.onload = renderPage;
