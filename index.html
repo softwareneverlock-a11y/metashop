@@ -3,37 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metashop | Lucky</title>
+    <title>METASHOP | Главная</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <nav class="navbar">
-            <div class="logo">METASHOP</div>
+            <a href="index.html" class="logo">METASHOP</a>
             <ul class="nav-links">
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="#" class="active">Жидкости</a></li>
-                <li><a href="#">Картриджи</a></li>
+                <li><a href="index.html" class="active">Главная</a></li>
+                <li><a href="liquids.html">Жидкости</a></li>
+                <li><a href="cartridges.html">Картриджи</a></li>
             </ul>
-            <div class="cart-icon" onclick="toggleCart()" style="cursor:pointer">
-                🛒 <span id="cart-count">0</span>
-            </div>
         </nav>
     </header>
 
     <main>
-        <div class="product-grid" id="product-grid"></div>
+        <section class="category-header">
+            <h1>Добро пожаловать в <span class="accent">METASHOP</span></h1>
+            <p>Выбери интересующий раздел</p>
+        </section>
+
+        <section class="main-categories">
+            <a href="liquids.html" class="category-card">
+                <h2>Жидкости</h2>
+                <p>Lucky и другие бренды</p>
+            </a>
+            <a href="cartridges.html" class="category-card">
+                <h2>Картриджи</h2>
+                <p>Расходники для подов</p>
+            </a>
+        </section>
     </main>
 
-  <div id="cart-modal" class="cart-modal">
-    <div class="cart-content">
-        <span class="close-cart" onclick="toggleCart()">✕</span>
-        <h3>Ваша корзина</h3>
-        <div id="cart-items"></div>
-        <button class="checkout-btn" onclick="checkout()">Оформить в Telegram</button>
-    </div>
-</div>
-
-    <script src="script.js"></script>
+    <footer class="shop-footer">
+        <div class="footer-line"></div>
+        <p>Наш канал: <a href="https://t.me/MetaShop4" target="_blank">@MetaShop4</a></p>
+        <p>Администратор: <a href="https://t.me/MetaShop4" target="_blank">Написать менеджеру</a></p>
+        <p class="delivery-info">🚚 Нова Пошта / Самовывоз Сумы</p>
+    </footer>
 </body>
 </html>
