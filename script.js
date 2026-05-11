@@ -1,19 +1,33 @@
-// Данные для Жидкостей
+// Данные для Жидкостей (для liquids.html)
 const liquids = [
     { name: "Lucky", img: "lucky-logo.jpg", link: "lucky-15.html", price: "140 грн" }
 ];
 
-// Данные для Картриджей
+// Данные для Картриджей (для cartridges.html)
 const cartridges = [
     { name: "Vaporesso XROS (0.8)", img: "cartridge-xros.jpg", stock: true, price: "150 грн" },
     { name: "Vaporesso XROS (1.0)", img: "cartridge-xros-1.jpg", stock: true, price: "150 грн" },
     { name: "Ursa Nano (0.6)", img: "ursa-06.jpg", stock: false, price: "160 грн" }
 ];
 
+// Данные для Вкусов Lucky (для lucky-15.html)
+const luckyProducts = [
+    { name: "Blueberry", img: "blueberry.jpg", stock: true },
+    { name: "Cold Mango", img: "cold-mango.jpg", stock: true },
+    { name: "Spearmint", img: "spearmint.jpg", stock: true },
+    { name: "Cola", img: "cola.jpg", stock: true },
+    { name: "Banana", img: "banana.jpg", stock: true },
+    { name: "Pink Lemonade", img: "pink-lemonade.jpg", stock: true },
+    { name: "Watermelon Lemonade", img: "watermelon-lemonade.jpg", stock: false },
+    { name: "Strawberry", img: "strawberry.jpg", stock: false },
+    { name: "Grape", img: "grape.jpg", stock: false },
+    { name: "Apple", img: "apple.jpg", stock: false }
+];
+
 let cart = [];
 
 function render() {
-    console.log("Render started..."); // Для проверки в консоли браузера
+    console.log("Render started...");
     
     const brandGrid = document.getElementById('brand-grid');
     const cartridgeGrid = document.getElementById('cartridge-grid');
@@ -29,7 +43,7 @@ function render() {
         `).join('');
     }
 
-    // 2. Отрисовка Картриджей (на cartridges.html)
+    // 2. Отрисовка Картриджей (на cartridges.html) - ИСПРАВЛЕНЫ КЛАССЫ КНОПОК
     if (cartridgeGrid) {
         cartridgeGrid.innerHTML = cartridges.map(c => `
             <div class="product-card ${!c.stock ? 'out-of-stock' : ''}">
@@ -44,23 +58,8 @@ function render() {
         `).join('');
     }
 
-    // 3. Отрисовка Вкусов Lucky (на lucky-15.html)
-    // Если ты хочешь, чтобы вкусы тоже были в скрипте, их нужно добавить сюда.
-    // Пока что страница lucky-15.html работает на данных из предыдущих шагов.
+    // 3. Отрисовка Вкусов Lucky (на lucky-15.html) - ИСПРАВЛЕНА СТРУКТУРА ДЛЯ CSS
     if (productGrid) {
-        const luckyProducts = [
-            { name: "Blueberry", img: "blueberry.jpg", stock: true },
-            { name: "Cold Mango", img: "cold-mango.jpg", stock: true },
-            { name: "Spearmint", img: "spearmint.jpg", stock: true },
-            { name: "Cola", img: "cola.jpg", stock: true },
-            { name: "Banana", img: "banana.jpg", stock: true },
-            { name: "Pink Lemonade", img: "pink-lemonade.jpg", stock: true },
-            { name: "Watermelon Lemonade", img: "watermelon-lemonade.jpg", stock: false },
-            { name: "Strawberry", img: "strawberry.jpg", stock: false },
-            { name: "Grape", img: "grape.jpg", stock: false },
-            { name: "Apple", img: "apple.jpg", stock: false }
-        ];
-        
         productGrid.innerHTML = luckyProducts.map(p => `
             <div class="product-card ${!p.stock ? 'out-of-stock' : ''}">
                 <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/150?text=Lucky'">
@@ -90,6 +89,10 @@ function buyNow(name) {
 }
 
 function showNotification(text) {
+    // Проверка на дубликаты уведомлений
+    const existing = document.querySelector('.notification');
+    if (existing) existing.remove();
+
     const el = document.createElement('div');
     el.className = 'notification';
     el.innerText = text;
@@ -98,7 +101,7 @@ function showNotification(text) {
     setTimeout(() => {
         el.classList.remove('show');
         setTimeout(() => el.remove(), 300);
-    }, 2000);
+    }, 2500);
 }
 
 function toggleCart() {
@@ -107,7 +110,7 @@ function toggleCart() {
     m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
     const itemsEl = document.getElementById('cart-items');
     if (itemsEl) {
-        itemsEl.innerHTML = cart.map(i => `<div class="cart-item">🔹 ${i}</div>`).join('') || 'Корзина пуста';
+        itemsEl.innerHTML = cart.map(i => `<div class="cart-item">🔹 ${i}</div>`).join('') || '<div style="text-align:center;color:#888;padding:20px;">Корзина пуста</div>';
     }
 }
 
