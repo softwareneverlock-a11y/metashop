@@ -1,115 +1,53 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>MetaShop</title>
-  <style>
-    body {
-      background-color: #0d0d0d;
-      color: #fff;
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      padding: 20px;
-      text-align: center;
-      background: #111;
-    }
-    header h1 {
-      color: #00aaff;
-      margin: 0;
-    }
-    header p {
-      color: #ccc;
-      margin: 5px 0 0;
-    }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-    .product-card {
-      background: #1a1a1a;
-      border-radius: 10px;
-      padding: 15px;
-      text-align: center;
-    }
-    .product-card img {
-      width: 100%;
-      height: auto;
-      max-height: 200px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
-    .product-price {
-      color: #00aaff;
-      font-weight: bold;
-      margin: 10px 0;
-    }
-    .buy-btn {
-      background: #00aaff;
-      color: #fff;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .buy-btn:hover {
-      background: #0088cc;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metashop | Lucky 15ml</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>MetaShop</h1>
-    <p>Жидкости — Витрина</p>
-  </header>
-  <main>
-    <div class="product-grid" id="productGrid"></div>
-  </main>
-<script>
-const products = [
-  { name: "Lucky 15ml", desc: "Watermelon Lemonade", price: "140", img: "images/watermelon-lemonade.jpg", available: false },
-  { name: "Lucky 15ml", desc: "Blueberry", price: "140", img: "images/blueberry.jpg", available: true },
-  { name: "Lucky 15ml", desc: "Cold Mango", price: "140", img: "images/cold-mango.jpg", available: true },
-  { name: "Lucky 15ml", desc: "Spearmint", price: "140", img: "images/spearmint.jpg", available: true },
-  { name: "Lucky 15ml", desc: "Cola", price: "140", img: "images/cola.jpg", available: true },
-  { name: "Lucky 15ml", desc: "Banana", price: "140", img: "images/banana.jpg", available: true },
-  { name: "Lucky 15ml", desc: "Pink Lemonade", price: "140", img: "images/pink-lemonade.jpg", available: true },
-  { name: "Lucky 15ml", desc: "Apple", price: "140", img: "images/apple.jpg", available: true },
-  { name: "Lucky 15ml", desc: "Grape", price: "140", img: "images/grape.jpg", available: false },
-  { name: "Lucky 15ml", desc: "Strawberry", price: "140", img: "images/strawberry.jpg", available: false }
-];
+    <header>
+        <nav class="navbar">
+            <div class="logo">METASHOP</div>
+            <ul class="nav-links">
+                <li><a href="#">Главная</a></li>
+                <li><a href="#" class="active">Жидкости</a></li>
+                <li><a href="#">Картриджи</a></li>
+            </ul>
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒 <span id="cart-count">0</span>
+            </div>
+        </nav>
+    </header>
 
-const grid = document.getElementById("productGrid");
+    <main>
+        <section class="category-header">
+            <h1>Lucky <span class="accent">15ml</span></h1>
+            <p class="price-tag">Цена: 140 грн</p>
+        </section>
 
-products.forEach(p => {
-  const card = document.createElement("div");
-  card.className = "product-card";
-  card.innerHTML = `
-    <img src="${p.img}" alt="${p.desc}">
-    <h3>${p.name}</h3>
-    <p>${p.desc}</p>
-    <p class="product-price">${p.price} грн</p>
-    ${p.available 
-      ? `<button class="buy-btn">Купить</button>` 
-      : `<button class="buy-btn" disabled style="background:#555;cursor:not-allowed;">Немає в наявності</button>`}
-  `;
-  
-  if (p.available) {
-    card.querySelector(".buy-btn").addEventListener("click", () => {
-      const message = encodeURIComponent(`Хочу замовити: ${p.name} ${p.desc} за ${p.price} грн`);
-      window.location.href = `https://t.me/MetaShop4?text=${message}`;
-    });
-  }
+        <div class="product-grid" id="product-grid"></div>
+    </main>
 
-  grid.appendChild(card);
-});
-</script>
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-content">
+            <span class="close" onclick="toggleCart()">&times;</span>
+            <h2>Ваша корзина</h2>
+            <div id="cart-items"></div>
+            <div class="cart-footer">
+                <button class="order-btn" onclick="checkout()">Оформить заказ в Telegram</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>Заказ: <a href="https://t.me/MetaShop4" target="_blank">@MetaShop4</a></p>
+            <p>Доставка: Нова Пошта / Самовывоз</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
-

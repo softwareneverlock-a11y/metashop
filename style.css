@@ -1,0 +1,71 @@
+:root {
+    --bg: #000000;
+    --card: #111111;
+    --blue: #007bff;
+    --blue-glow: rgba(0, 123, 255, 0.4);
+    --text: #ffffff;
+    --gray: #888888;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+}
+
+.navbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 5%; background: rgba(0,0,0,0.9);
+    border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100;
+}
+
+.logo { font-weight: 800; font-size: 24px; color: var(--blue); }
+
+.nav-links { display: flex; gap: 20px; list-style: none; }
+
+.nav-links a { color: var(--text); text-decoration: none; transition: 0.3s; }
+
+.nav-links a.active { color: var(--blue); }
+
+.category-header { text-align: center; padding: 40px 20px; }
+
+.price-tag { font-size: 20px; color: var(--gray); margin-top: 10px; }
+
+.product-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px; padding: 0 5% 50px;
+}
+
+.product-card {
+    background: var(--card); border-radius: 12px; padding: 15px;
+    text-align: center; border: 1px solid #222; transition: 0.3s ease;
+}
+
+.product-card:hover { border-color: var(--blue); box-shadow: 0 0 15px var(--blue-glow); }
+
+.product-card.out-of-stock { opacity: 0.5; filter: grayscale(1); pointer-events: none; }
+
+.product-card img { width: 100%; height: 150px; object-fit: contain; }
+
+.buy-btn {
+    background: var(--blue); color: #fff; border: none; width: 100%;
+    padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600;
+}
+
+.cart-modal {
+    display: none; position: fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.8); z-index: 1000;
+}
+
+.cart-content {
+    background: #111; margin: 15% auto; padding: 25px; width: 320px;
+    border-radius: 15px; border: 1px solid var(--blue);
+}
+
+.order-btn {
+    background: var(--blue); color: white; border: none; width: 100%;
+    padding: 12px; border-radius: 8px; margin-top: 15px; cursor: pointer;
+}
+
+footer { padding: 30px; text-align: center; border-top: 1px solid #222; }
