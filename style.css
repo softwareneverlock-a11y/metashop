@@ -203,3 +203,55 @@ body {
     transform: translateX(-50%) translateY(0);
     opacity: 1;
 }
+/* --- ПРОДВИНУТАЯ МОБИЛЬНАЯ АДАПТАЦИЯ --- */
+
+@media (max-width: 768px) {
+    /* 1. Навигация: уменьшаем отступы и лого */
+    .navbar { padding: 10px 5%; }
+    .logo { font-size: 18px; letter-spacing: 1px; }
+    .nav-links { gap: 10px; }
+    .nav-links a { font-size: 10px; }
+
+    /* 2. Заголовки: чтобы не занимали весь экран */
+    .hero-section { padding: 60px 15px 30px; }
+    .category-header h1 { font-size: 26px; letter-spacing: 2px; }
+    .category-header p { font-size: 13px; }
+
+    /* 3. Кнопки в Hero: в одну колонку на узких экранах */
+    .hero-actions { flex-direction: column; width: 100%; align-items: center; }
+    .hero-actions a { width: 90%; text-align: center; padding: 12px; }
+
+    /* 4. СЕТКА ТОВАРОВ: Делаем 2 колонки (очень важно для мобилок) */
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px; 
+        padding: 10px;
+    }
+
+    /* 5. Карточки товаров: компактнее */
+    .product-card { padding: 12px; border-radius: 10px; }
+    .product-card img { height: 120px; margin-bottom: 10px; }
+    .product-card h3 { font-size: 13px; min-height: 32px; } /* Ограничиваем высоту заголовка */
+
+    /* 6. Кнопки в карточке: иконку корзины и текст "КУПИТЬ" ставим в ряд */
+    .card-buttons { gap: 5px; }
+    .buy-now-btn { font-size: 9px; padding: 10px 5px; }
+    .cart-btn { padding: 8px; font-size: 14px; }
+
+    /* 7. Уведомление: делаем чуть меньше */
+    .notification {
+        width: 80%;
+        font-size: 11px;
+        padding: 12px 15px;
+        bottom: 20px;
+    }
+
+    /* 8. Сетка категорий (Жидкости / Картриджи) */
+    .main-categories { grid-template-columns: 1fr; gap: 15px; }
+    .category-card { padding: 30px 15px; }
+}
+
+/* Совсем для маленьких телефонов (iPhone SE и т.д.) */
+@media (max-width: 380px) {
+    .product-grid { grid-template-columns: 1fr; } /* Тут лучше в одну, чтобы не было слишком узко */
+}
