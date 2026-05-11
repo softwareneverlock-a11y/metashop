@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metashop | Lucky 15ml</title>
+    <title>Metashop | Lucky</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,42 +11,28 @@
         <nav class="navbar">
             <div class="logo">METASHOP</div>
             <ul class="nav-links">
-                <li><a href="#">Главная</a></li>
+                <li><a href="index.html">Главная</a></li>
                 <li><a href="#" class="active">Жидкости</a></li>
                 <li><a href="#">Картриджи</a></li>
             </ul>
-            <div class="cart-icon" onclick="toggleCart()">
+            <div class="cart-icon" onclick="toggleCart()" style="cursor:pointer">
                 🛒 <span id="cart-count">0</span>
             </div>
         </nav>
     </header>
 
     <main>
-        <section class="category-header">
-            <h1>Lucky <span class="accent">15ml</span></h1>
-            <p class="price-tag">Цена: 140 грн</p>
-        </section>
-
         <div class="product-grid" id="product-grid"></div>
     </main>
 
-    <div id="cart-modal" class="cart-modal">
-        <div class="cart-content">
-            <span class="close" onclick="toggleCart()">&times;</span>
-            <h2>Ваша корзина</h2>
-            <div id="cart-items"></div>
-            <div class="cart-footer">
-                <button class="order-btn" onclick="checkout()">Оформить заказ в Telegram</button>
-            </div>
-        </div>
+  <div id="cart-modal" class="cart-modal">
+    <div class="cart-content">
+        <span class="close-cart" onclick="toggleCart()">✕</span>
+        <h3>Ваша корзина</h3>
+        <div id="cart-items"></div>
+        <button class="checkout-btn" onclick="checkout()">Оформить в Telegram</button>
     </div>
-
-    <footer>
-        <div class="footer-content">
-            <p>Заказ: <a href="https://t.me/MetaShop4" target="_blank">@MetaShop4</a></p>
-            <p>Доставка: Нова Пошта / Самовывоз</p>
-        </div>
-    </footer>
+</div>
 
     <script src="script.js"></script>
 </body>
