@@ -13,8 +13,8 @@ const luckyVastes = [
 ];
 
 const podList = [
-    { name: "Vaporesso XROS (0.8)", price: "150 грн", img: "cartridge-xros.jpg", stock: true },
-    { name: "Vaporesso XROS (1.0)", price: "150 грн", img: "cartridge-xros-1.jpg", stock: true },
+    { name: "Vaporesso XROS (0.8)", price: "150 грн", img: "cartridge-xros.jpg", stock: false },
+    { name: "Vaporesso XROS (1.0)", price: "150 грн", img: "cartridge-xros-1.jpg", stock: false },
     { name: "Ursa Nano (0.6)", price: "160 грн", img: "ursa-06.jpg", stock: false }
 ];
 
