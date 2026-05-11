@@ -87,16 +87,34 @@ function addToCart(item) {
 }
 
 function showNotify(text) {
-    const el = document.createElement('div');
-    el.className = 'notification show';
-    el.innerText = text;
-    document.body.appendChild(el);
-    setTimeout(() => { 
-        el.classList.remove('show'); 
-        setTimeout(() => el.remove(), 500); 
-    }, 2000);
-}
+    // 1. Если уже есть уведомление, быстро удаляем его
+    const oldNotify = document.querySelector('.notification');
+    if (oldNotify) {
+        oldNotify.remove();
+    }
 
+    // 2. Создаем новый элемент
+    const el = document.createElement('div');
+    el.className = 'notification'; // CSS класс
+    el.innerText = text;
+    
+    // 3. Добавляем в конец body
+    document.body.appendChild(el);
+    
+    // 4. Через микропаузу добавляем класс 'show', чтобы сработала CSS анимация
+    setTimeout(() => {
+        el.classList.add('show');
+    }, 10);
+    
+    // 5. Через 2.5 секунды начинаем прятать
+    setTimeout(() => {
+        el.classList.remove('show');
+        // 6. И еще через полсекунды (когда закончится анимация затухания) удаляем из DOM
+        setTimeout(() => {
+            el.remove();
+        }, 500);
+    }, 2500);
+}
 function toggleCart() {
     const m = document.getElementById('cart-modal');
     if (!m) return;

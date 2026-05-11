@@ -168,3 +168,38 @@ body {
     .hero-actions a { width: 100%; max-width: 300px; text-align: center; }
     .features-section { padding: 40px 5%; }
 }
+/* --- СТИЛЬНОЕ НЕОНОВОЕ УВЕДОМЛЕНИЕ --- */
+
+.notification {
+    position: fixed;
+    bottom: 30px; /* Отступ от низа */
+    left: 50%;
+    transform: translateX(-50%) translateY(100px); /* Изначально спрятано внизу */
+    
+    background: rgba(0, 0, 0, 0.8); /* Полупрозрачный черный фон */
+    color: var(--accent); /* Мятный текст */
+    border: 1px solid var(--accent); /* Мятная обводка */
+    
+    padding: 15px 30px;
+    border-radius: 50px; /* Круглые края */
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+    z-index: 3000; /* Выше всего */
+    box-shadow: 0 0 20px var(--accent-glow); /* Свечение */
+    
+    backdrop-filter: blur(5px); /* Размытие фона сквозь */
+    
+    transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Плавная анимация «выпрыгивания» */
+    opacity: 0;
+    
+    white-space: nowrap; /* Чтобы текст не переносился */
+}
+
+/* Класс, который JS добавляет для показа */
+.notification.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
