@@ -1,4 +1,5 @@
-// Данные
+// --- КОНФИГУРАЦИЯ ТОВАРОВ ---
+
 const luckyVastes = [
     { name: "Blueberry", img: "blueberry.jpg", stock: true },
     { name: "Cold Mango", img: "cold-mango.jpg", stock: true },
@@ -20,66 +21,69 @@ const podList = [
 
 let cart = [];
 
-// Функция отрисовки
+// --- ОСНОВНАЯ ФУНКЦИЯ ОТРИСОВКИ ---
+
 function render() {
-    // Ищем блоки
     const luckyGrid = document.getElementById('lucky-grid');
     const cartridgeGrid = document.getElementById('cartridge-grid');
     const brandGrid = document.getElementById('brand-grid');
 
-    // Если мы на странице выбора бренда (liquids.html)
+    // 1. Страница выбора бренда (liquids.html)
     if (brandGrid) {
         brandGrid.innerHTML = `
             <a href="lucky-15.html" class="category-card">
+                <div class="volume-badge">POPULAR</div>
                 <h2>LUCKY</h2>
-                <p>15ml / 140 грн</p>
+                <p>15ML / 140 ГРН</p>
+                <div style="margin-top:20px; color:var(--accent); font-size:10px;">ПЕРЕГЛЯНУТИ КАТАЛОГ ></div>
             </a>
         `;
     }
 
-    // Если мы на странице вкусов Lucky (lucky-15.html)
+    // 2. Страница вкусов Lucky (lucky-15.html)
     if (luckyGrid) {
         luckyGrid.innerHTML = luckyVastes.map(v => `
             <div class="product-card ${!v.stock ? 'out-of-stock' : ''}">
-                <img src="${v.img}" alt="${v.name}" onerror="this.src='https://via.placeholder.com/150'">
+                <div class="volume-badge">15ML</div>
+                <img src="${v.img}" alt="${v.name}" onerror="this.src='https://via.placeholder.com/200/000000/00ffcc?text=METASHOP'">
                 <h3>${v.name}</h3>
-                <span class="volume-badge">15ml</span>
                 <p class="status-text ${v.stock ? 'in-stock-text' : 'out-of-stock-text'}">
-                    ${v.stock ? 'В НАЛИЧИИ' : 'НЕТ В НАЛИЧИИ'}
+                    ● ${v.stock ? 'В НАЯВНОСТІ' : 'НЕМАЄ В НАЯВНОСТІ'}
                 </p>
                 <div class="card-buttons">
-                    <button class="cart-btn" onclick="addToCart('${v.name} 15ml')">В КОРЗИНУ</button>
-                    <button class="buy-now-btn" onclick="buyNow('${v.name} 15ml')">КУПИТЬ</button>
+                    <button class="cart-btn" onclick="addToCart('${v.name} 15ml')">🛒</button>
+                    <button class="buy-now-btn" onclick="buyNow('${v.name} 15ml')">ЗАМОВИТИ</button>
                 </div>
             </div>
         `).join('');
     }
 
-    // Если мы на странице картриджей (cartridges.html)
+    // 3. Страница картриджей (cartridges.html)
     if (cartridgeGrid) {
         cartridgeGrid.innerHTML = podList.map(p => `
             <div class="product-card ${!p.stock ? 'out-of-stock' : ''}">
-                <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/150'">
+                <div class="volume-badge">${p.price}</div>
+                <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200/000000/00ffcc?text=PODS'">
                 <h3>${p.name}</h3>
-                <span class="volume-badge">${p.price}</span>
                 <p class="status-text ${p.stock ? 'in-stock-text' : 'out-of-stock-text'}">
-                    ${p.stock ? 'В НАЛИЧИИ' : 'НЕТ В НАЛИЧИИ'}
+                    ● ${p.stock ? 'В НАЯВНОСТІ' : 'НЕМАЄ В НАЯВНОСТІ'}
                 </p>
                 <div class="card-buttons">
-                    <button class="cart-btn" onclick="addToCart('${p.name}')">В КОРЗИНУ</button>
-                    <button class="buy-now-btn" onclick="buyNow('${p.name}')">КУПИТЬ</button>
+                    <button class="cart-btn" onclick="addToCart('${p.name}')">🛒</button>
+                    <button class="buy-now-btn" onclick="buyNow('${p.name}')">ЗАМОВИТИ</button>
                 </div>
             </div>
         `).join('');
     }
 }
 
-// Логика корзины
+// --- ЛОГИКА КОРЗИНЫ ---
+
 function addToCart(item) {
     cart.push(item);
     const count = document.getElementById('cart-count');
     if (count) count.innerText = cart.length;
-    showNotify(`✅ ${item} в корзине`);
+    showNotify(`✅ ${item.toUpperCase()} ДОДАНО`);
 }
 
 function showNotify(text) {
@@ -87,7 +91,10 @@ function showNotify(text) {
     el.className = 'notification show';
     el.innerText = text;
     document.body.appendChild(el);
-    setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 500); }, 2000);
+    setTimeout(() => { 
+        el.classList.remove('show'); 
+        setTimeout(() => el.remove(), 500); 
+    }, 2000);
 }
 
 function toggleCart() {
@@ -95,11 +102,21 @@ function toggleCart() {
     if (!m) return;
     m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
     const items = document.getElementById('cart-items');
-    if (items) items.innerHTML = cart.map(i => `<div class="cart-item">🔹 ${i}</div>`).join('') || 'Корзина пуста';
+    if (items) {
+        items.innerHTML = cart.map(i => `<div class="cart-item" style="color:var(--accent); border-bottom: 1px solid var(--card-border); padding:10px 0;">[+] ${i.toUpperCase()}</div>`).join('') || 'КОШИК ПОРОЖНІЙ';
+    }
 }
 
-function buyNow(item) { window.open(`https://t.me/MetaShop4?text=Хочу купить: ${item}`); }
-function checkout() { if(cart.length) window.open(`https://t.me/MetaShop4?text=Мой заказ:\n${cart.join('\n')}`); }
+function buyNow(item) { 
+    window.open(`https://t.me/MetaShop4?text=Вітаю! Хочу замовити: ${item}`); 
+}
 
-// Запуск
+function checkout() { 
+    if(cart.length) {
+        const text = encodeURIComponent(`Нове замовлення:\n${cart.join('\n')}`);
+        window.open(`https://t.me/MetaShop4?text=${text}`);
+    }
+}
+
+// ЗАПУСК
 document.addEventListener('DOMContentLoaded', render);
