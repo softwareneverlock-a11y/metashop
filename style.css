@@ -122,3 +122,49 @@ body {
     .product-grid { grid-template-columns: 1fr; }
     .category-header h1 { font-size: 28px; }
 }
+/* --- ДОПОЛНЕНИЯ ДЛЯ ГЛАВНОЙ --- */
+
+.hero-section {
+    padding: 100px 20px 60px; /* Увеличили отступы */
+}
+
+.hero-section p {
+    max-width: 600px; margin: 10px auto 30px; color: var(--text-dim); font-size: 16px;
+}
+
+.badge {
+    display: inline-block; background: rgba(0, 255, 204, 0.1); 
+    color: var(--accent); padding: 5px 15px; border-radius: 4px; 
+    font-size: 10px; font-weight: bold; border: 1px solid var(--accent);
+    margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;
+}
+
+.hero-actions {
+    display: flex; gap: 15px; justify-content: center; margin-bottom: 50px;
+}
+.hero-actions .buy-now-btn, .hero-actions .cart-btn {
+    flex: none; padding: 15px 40px; font-size: 13px;
+}
+
+/* Блок преимуществ (Features) */
+.features-section {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px; padding: 60px 8%; max-width: 1400px; margin: 0 auto 60px;
+}
+
+.feature-card {
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 30px; text-align: center;
+    transition: 0.3s;
+}
+.feature-card:hover { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); }
+
+.feature-card .icon { font-size: 40px; margin-bottom: 20px; opacity: 0.8; }
+.feature-card h3 { font-size: 18px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.feature-card p { color: var(--text-dim); font-size: 14px; }
+
+@media (max-width: 768px) {
+    .hero-actions { flex-direction: column; gap: 10px; align-items: center; }
+    .hero-actions a { width: 100%; max-width: 300px; text-align: center; }
+    .features-section { padding: 40px 5%; }
+}
