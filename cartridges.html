@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>METASHOP | Картриджи</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">METASHOP</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="liquids.html">Жидкости</a></li>
+                <li><a href="cartridges.html" class="active">Картриджи</a></li>
+            </ul>
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒 <span id="cart-count">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="category-header">
+            <h1>Наличие <span class="accent">Картриджей</span></h1>
+        </section>
+
+        <div id="cartridge-grid" class="product-grid">
+            </div>
+    </main>
+
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-content">
+            <span class="close-cart" onclick="toggleCart()">✕</span>
+            <h3>Ваша корзина</h3>
+            <div id="cart-items"></div>
+            <button class="checkout-btn" onclick="checkout()">Оформить в Telegram</button>
+        </div>
+    </div>
+
+    <footer class="shop-footer">
+        <div class="footer-line"></div>
+        <p>Заказ: <a href="https://t.me/MetaShop4">@MetaShop4</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
