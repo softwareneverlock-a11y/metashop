@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metashop | Lucky</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">METASHOP</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="#" class="active">Жидкости</a></li>
+                <li><a href="#">Картриджи</a></li>
+            </ul>
+            <div class="cart-icon" onclick="toggleCart()" style="cursor:pointer">
+                🛒 <span id="cart-count">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="product-grid" id="product-grid"></div>
+    </main>
+
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-content">
+            <span onclick="toggleCart()" style="float:right; cursor:pointer">✖</span>
+            <h3>Корзина</h3>
+            <div id="cart-items"></div>
+            <button class="buy-now-btn" style="width:100%; margin-top:15px" onclick="checkout()">Заказать в ТГ</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+:root {
+    --bg: #000000;
+    --card: #0f0f0f;
+    --blue: #007bff;
+    --blue-dark: #0056b3;
+    --text: #ffffff;
+}
+
+body { background: var(--bg); color: var(--text); font-family: sans-serif; margin: 0; }
+
+.navbar { display: flex; justify-content: space-between; padding: 20px 5%; background: #000; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100; }
+.logo { font-weight: bold; color: var(--blue); font-size: 22px; }
+.nav-links { display: flex; gap: 15px; list-style: none; margin: 0; }
+.nav-links a { color: white; text-decoration: none; font-size: 14px; }
+.nav-links a.active { color: var(--blue); border-bottom: 2px solid var(--blue); }
+
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; padding: 20px 5%; }
+
+.product-card { background: var(--card); border-radius: 12px; padding: 15px; border: 1px solid #222; text-align: center; }
+.product-card img { width: 100%; height: 140px; object-fit: contain; margin-bottom: 10px; }
+.product-card.out-of-stock { opacity: 0.4; filter: grayscale(1); }
+
+.status { font-size: 12px; margin-bottom: 10px; color: #888; }
+
+/* Две кнопки в ряд */
+.card-buttons { display: flex; gap: 8px; }
+.cart-btn, .buy-now-btn { flex: 1; padding: 8px 5px; border-radius: 6px; border: none; cursor: pointer; font-size: 12px; font-weight: bold; transition: 0.2s; }
+
+.cart-btn { background: #222; color: white; border: 1px solid var(--blue); }
+.cart-btn:hover { background: var(--blue); }
+
+.buy-now-btn { background: var(--blue); color: white; }
+.buy-now-btn:hover { background: var(--blue-dark); }
+
+/* Уведомление */
+.notification {
+    position: fixed; bottom: 20px; right: 20px; background: var(--blue);
+    padding: 12px 20px; border-radius: 8px; transform: translateY(100px);
+    transition: 0.3s; opacity: 0; z-index: 2000;
+}
+.notification.show { transform: translateY(0); opacity: 1; }
+
+.cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; }
+.cart-content { background: #111; margin: 20% auto; padding: 20px; width: 280px; border-radius: 12px; border: 1px solid var(--blue); }
