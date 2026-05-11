@@ -268,3 +268,33 @@ body {
     .product-card img { height: 120px; }
     .logo { font-size: 18px; }
 }
+.shop-footer {
+    padding: 60px 20px 40px;
+    text-align: center;
+    background: linear-gradient(to top, #050505, transparent);
+}
+
+.footer-line {
+    width: 50px;
+    height: 2px;
+    background: var(--blue);
+    margin: 0 auto 20px;
+}
+
+.shop-footer p {
+    color: var(--gray);
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.shop-footer a {
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.delivery-info {
+    margin-top: 15px !important;
+    font-style: italic;
+    opacity: 0.8;
+}
