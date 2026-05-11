@@ -2,7 +2,7 @@
 const luckyVastes = [
     { name: "Blueberry", img: "blueberry.jpg", stock: true },
     { name: "Cold Mango", img: "cold-mango.jpg", stock: true },
-    { name: "Spearmint", img: "spearmint.jpg", stock: true },
+    { name: "Spearmint", img: "spearmint.jpg", stock: false },
     { name: "Cola", img: "cola.jpg", stock: true },
     { name: "Banana", img: "banana.jpg", stock: true },
     { name: "Pink Lemonade", img: "pink-lemonade.jpg", stock: true },
